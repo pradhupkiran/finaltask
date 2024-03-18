@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+update
+{% endblock %}
+
+{% block title %}
+update
+{% endblock %}
+
+{% block body %}
+<h3 class="p-3 mb-2 bg-primary text-white mt-4 mb-4">UPDATE </h3>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+{% endblock %}

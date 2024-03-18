@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    {% if category %}
+        {{category.desc| truncatewords:155 }}
+    {% else %}
+        welcome to the world of movies
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+        {{category.title}}
+    {% else %}
+        explore more...
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<div class="alert alert-warning alert-dismissible fade show " role="alert">
+  <strong>Hello </strong>   {% for msg in messages %}
+{{msg}}
+
+{% endfor %}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="mt-4">
+    {% if category %}
+        <img class="rounded mx-auto d-block" src="{{category.image.url}}" alt="{{category.title}}" width="800px" height="200px">
+</div>
+
+        <div>
+        <h1 class="text-center my_title">{{category.title}}</h1>
+        <p class="text-justify">{{category.desc}}</p>
+        </div>
+    {% else %}
+<!--    <div>-->
+<!--        <img class="my_img my_img_padding" src="{% static 'images/banner.jpg' %}">-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div>-->
+<!--        <h1 class="text-center my_title">Our trending products </h1>-->
+<!--        <p class="text-justify">we have a variety of products. happy shopping</p>-->
+<!--    </div>-->
+    {% endif %}
+<div class="container">
+    <div class="row mx-auto">
+        {% for movie in movies %}
+        <div class="my_bottom_margin col-6 col-sm-12 col-md-4 col-lg-4">
+            <div class="card" style="width: 18rem; margin-top:45px;">
+                <a href="{{movie.get_url}}">  <img class="card-img-top"  src="{{movie.image.url}}" alt="{{movie.title}}" width="190px" height="250px">  </a>
+              <div class="card-body">
+                <h5 class="card-title">{{movie.title}}</h5>
+                <p class="card-text">{{movie.category}}</p>
+                <a href="{% url 'movie:post_detail' movie.id %}" class="btn btn-primary">view more</a>
+              </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mx-auto">
+        {% if movies.paginator.num_pages > 1 %}
+        <div class="text-center">
+            {% for pg in movies.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light btn-small" {% if movies.number == pg %} active {% endif %}>{{pg}}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

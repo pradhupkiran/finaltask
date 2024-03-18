@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+detail
+{% endblock %}
+
+{% block title %}
+detail page
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <div class="row mx-auto">
+        <div class=" col-12 col-md-12 col-sm-12 col-lg-6 text-center">
+            <img src="{{movie.image.url}}" width="350px" height="450px">
+         </div>
+        <div class="col-12 col-md-12 col-sm-12 col-lg-6 ">
+
+            <h3> Movie : {{movie.title}}</h3>
+            <h5> Description :</h5><span> <p>{{movie.desc}} </p></span>
+            <h5> Released on :</h5>{{movie.release_date}}
+            <h5> Cast :</h5>{{movie.actors}}
+            <h5> Category :</h5>{{movie.category}}
+            <h5> Watch trailer now :</h5><a href="{{movie.youtube_link}}" >{{movie.youtube_link}}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+mypost
+{% endblock %}
+
+{% block title %}
+mypost
+{% endblock %}
+
+{% block body %}
+<h3 class="text-light text-center bg-info w-100  mt-4 p-3">My Posts</h3>
+<div class="container">
+    <div class="row mx-auto">
+
+        {% for movie in movies %}
+        <div class="my_bottom_margin col-6 col-sm-12 col-md-4 col-lg-4">
+            <div class="card" style="width: 18rem; margin-top:45px;">
+                <a href="{{movie.get_url}}">  <img class="card-img-top"  src="{{movie.image.url}}" alt="{{movie.title}}" width="190px" height="250px">  </a>
+              <div class="card-body">
+                <h5 class="card-title">{{movie.title}}</h5>
+                <p class="card-text">{{movie.category}}</p>
+                <button type="button" class="btn btn-light " > <a class="text-decoration-none" href="{% url 'movie:edit_post' movie.id %}">Edit</a> </button>
+                  <button type="button" class="btn btn-light" > <a class="text-decoration-none" href="{% url 'movie:delete_post' movie.id %}">Delete</a>  </button>
+              </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
